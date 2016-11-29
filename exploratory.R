@@ -28,8 +28,8 @@ plot(ds$hp,ds$mpg,pch=19,col=ds$am,xlab='hp', ylab='mpg')
 
 plot(ds$gear,ds$mpg,pch=19,col=ds$am,xlab='gear', ylab='mpg')
 
-plot(ds$carb,ds$mpg,pch=19,col=ds$am,xlab='carb', ylab='mpg')
+plot(ds$carb,ds$mpg,pch=19,col='red',xlab='carb', ylab='mpg')
 
 plot(ds$disp,ds$mpg,pch=19,col=ds$am,xlab='disp', ylab='mpg')
 
-
+pairs(ds,lower.panel = panel.smooth)
