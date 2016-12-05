@@ -50,8 +50,4 @@ plot(ds$cyl,ds$mpg,pch=19,col='lightgreen',xlab='cylinder', ylab='mpg')
 plot(ds$gear,ds$mpg,pch=19,col='lightgreen',xlab='gear', ylab='mpg')
 plot(ds$carb,ds$mpg,pch=19,col='lightgreen',xlab='carb', ylab='mpg')
 
-
-
 pairs(ds,panel=panel.smooth)
-
-
