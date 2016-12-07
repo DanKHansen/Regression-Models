@@ -1,3 +1,6 @@
+library(ggplot2)
+library(GGally)
+
 ds <- mtcars
 str(ds)
 summary(ds)
