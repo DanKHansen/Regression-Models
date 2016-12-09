@@ -1,7 +1,7 @@
 ---
 title: "Regression Models"
 author: "Dan Kjeldstrøm Hansen"
-date: "30 nov 2016"
+date: "30 DEC 2016"
 output: html_document
 ---
 
@@ -9,11 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Executive Summary:
+In this anaylsis I will answer the question:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Do transmission type (automatic vs. manual) have a positive effect on mpg (mile pr. gallon), and if so, how much?
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The short answer to this question, and based on the following, is "yes" - given the provided dataset.
+The second half of the question; "how much" is a bit more difficult to answer as several variables can cause thos effect, not transmission alone. But given the dataset at hand, we will try to answer this a precise as possible.
+
 
 ```{r cars}
 summary(cars)
@@ -27,4 +30,4 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
