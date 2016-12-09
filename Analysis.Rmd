@@ -17,9 +17,11 @@ Do transmission type (automatic vs. manual) have a positive effect on mpg (mile 
 The short answer to this question, and based on the following, is "yes" - given the provided dataset.
 The second half of the question; "how much" is a bit more difficult to answer as several variables can cause thos effect, not transmission alone. But given the dataset at hand, we will try to answer this a precise as possible.
 
+Let's begin with a small exploration of the raw data:
+
 
 ```{r cars}
-summary(cars)
+head(mtcars, 10)
 ```
 
 ## Including Plots
