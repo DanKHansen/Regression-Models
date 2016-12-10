@@ -15,16 +15,34 @@ In this anaylsis I will answer the question:
 Do transmission type (automatic vs. manual) have a positive effect on mpg (mile pr. gallon), and if so, how much?
 
 The short answer to this question, and based on the following, is "yes" - given the provided dataset.
-The second half of the question; "how much" is a bit more difficult to answer as several variables can cause thos effect, not transmission alone. But given the dataset at hand, we will try to answer this a precise as possible.
+The second half of the question; "how much" is a bit more difficult to answer as several variables can cause this effect, not transmission alone. But given the dataset at hand, we will try to answer this a precise as possible.
 
 Let's begin with a small exploration of the raw data:
 
+## Exploratory Analysis
 
 ```{r cars}
-head(mtcars, 10)
+ds <- mtcars
+head(ds, 10)
+str(ds)
+```
+The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model amongs other things which is out of this small assignments idea)
+
+For a more intuitive view, I'll factorise the am-variable:
+
+```{r}
+ds$am <- factor(ds$am,labels=c('Auto.','Man.'))
+head(ds,5)
+```
+As we can see, transmission (am) is now presented as either Automatic or Manual
+Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand)
+
+```{r boxplot am}
+plot(ds$am,ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
 ```
 
-## Including Plots
+
+## Exploratory Analysis
 
 You can also embed plots, for example:
 

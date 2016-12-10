@@ -17,7 +17,10 @@ summary(ds)
 #plot(ds)
 pairs(ds, col=ds$am, panel = panel.smooth)
 
-plot(ds$am,ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
+#boxplot(factor(ds$am, labels = c('a','m')),ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
+plot(as.factor(ds$am),ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
+abline(h = mean(ds$mpg[ds$am==0]),col='red')
+abline(h = mean(ds$mpg[ds$am==1]),col='red')
 
 fit <- lm(mpg ~ am,ds)
 mdl <- lm(mpg ~ .,ds)
