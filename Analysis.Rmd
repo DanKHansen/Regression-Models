@@ -26,7 +26,7 @@ ds <- mtcars
 head(ds, 10)
 str(ds)
 ```
-The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model amongs other things which is out of this small assignments idea)
+The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
 
 For a more intuitive view, I'll factorise the am-variable:
 
@@ -49,7 +49,6 @@ abline(h = mean(ds$mpg[ds$am == 'Man.']),col='red',lty=2)
 ## Exploratory Analysis
 Now let's dig a bit deeper into the data....
 
-You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
