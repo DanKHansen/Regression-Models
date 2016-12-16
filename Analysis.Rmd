@@ -48,10 +48,14 @@ abline(h = mean(ds$mpg[ds$am == 'Man.']),col='red',lty=2)
 
 ## Exploratory Analysis
 Now let's dig a bit deeper into the data....
+Let's fit a linear regression model on the mpg/am set:
 
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r fit am}
+fit <- lm(mpg~am,data=ds)
+summary(fit)
 ```
+
+We can confirm that cars with automatic transmission has an average mpg value of 17.147 and cars with manual transmission has an average that is 7.245 mpg higher. We can also see that this model, including only am as predictor, only vouch for 33,85% of the variance (adj. R-sqr: 0.3385). We need to make a better model:
+
 
 
