@@ -15,7 +15,7 @@ In this anaylsis I will answer the question:
 Do transmission type (automatic vs. manual) have a positive effect on mpg (mile pr. gallon), and if so, how much?
 
 The short answer to this question, and based on the following, is "yes" - given the provided dataset.
-The second half of the question; "how much" is a bit more difficult to answer as several variables can cause this effect, not transmission alone. But given the dataset at hand, we will try to answer this a precise as possible.
+The second half of the question; "how much" is a bit more difficult to answer as several variables can cause this effect, not transmission alone. But given the dataset at hand, we will try to answer this as precise as possible.
 
 Let's begin with a small exploration of the raw data:
 
