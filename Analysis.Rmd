@@ -14,8 +14,11 @@ In this anaylsis I will answer the question:
 
 Do transmission type (automatic vs. manual) have a positive effect on mpg (mile pr. gallon), and if so, how much?
 
-The short answer to this question, and based on the following, is "yes" - given the provided dataset.
-The second half of the question; "how much" is a bit more difficult to answer as several variables can cause this effect, not transmission alone. But given the dataset at hand, we will try to answer this as precise as possible.
+The short answer to this question, and based on the following, is "maybe" - given the provided dataset. 
+
+Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a postive correllation between am and mpg, but if am is a really a contributor is not evident, many other variables would possible have a higher influence on mpg, even some of those present in the dataset.
+
+During the exploratory data analysis I will describe the correllations between the given predictors in order to find out how much each or a combination of them will actually give base for a model that could predict the expected mpg.
 
 Let's begin with a small exploration of the raw data:
 
@@ -23,7 +26,7 @@ Let's begin with a small exploration of the raw data:
 
 ```{r cars}
 ds <- mtcars
-head(ds, 10)
+head(ds, 5)
 str(ds)
 ```
 The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
@@ -34,19 +37,17 @@ For a more intuitive view, I'll factorise the am-variable:
 ds$am <- factor(ds$am,labels=c('Aut.','Man.'))
 head(ds,5)
 ```
-As we can see, transmission (am) is now presented as either Automatic or Manual
+As we can see, transmission (am) is now presented as either Aut. or Man.
 Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand)
+see fig. 1
+I've added a red dashed line indicating the mean of mpg (not to be confused with the medians in the boxes) for both Automatic and Manual transmission. It is clearly visible that on average cars with manual transmission have a higher mpg than cars with automatic transmission. (approx. 7 mpg difference)
 
-(I've added a red dashed line indicating the mean of mpg (not to be confused with the medians in the boxes) for both Automatic and Manual). Thus it is clearly visible that on average cars with manual transmission have a higher mpg than cars with automatic transmission. (approx. 7 mpg difference)
 
-```{r boxplot am}
-plot(ds$am,ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
-abline(h = mean(ds$mpg[ds$am == 'Aut.']),col='red',lty=2)
-abline(h = mean(ds$mpg[ds$am == 'Man.']),col='red',lty=2)
+This rather small dataset, is a typically observational study, and not a controlled experiment. And even if there seem to be a correlation between mgp and transmission, there is no evidence that the type of transmission has a causional effect on mpg. As a matter of fact it is no intuitive that just because you change the type of transmission you should get any benifit in mpg. 
 
-```
+To move an object of a certain mass, you need to add som force in order to overcome all other forces like friction, windresistance, gravity etc. etc. In the case with these cars, the force that makes them drive is the engine. And the more force you add, the more the car moves, but in order to add force you need to add energy, in this case gallons of fuel - hence the higher mpg, the more you are able to utilize the energy to apply force on the car. An engines "muscles" are more or less equal to it's horsepowers, and the amount of energy you need to apply would have to overcome the exisitng forces on the car, like for example the weight of the car -> the heavier the car, the more energy you need -> you need more fuel....
 
-## Exploratory Analysis
+In this dataset, there are no observations of the speed of the cars, the aerodynamics of the cars, the friction agains the ground etc. etc. so a direct causation between am and mpg can not be expected. You could also add the driver type whether or not he is an aggressive driver or a more moderate driver, which in turn also would have an impact of the the fuelconsumption (harder acceleration / straing on the engine by not shifting gear at the optimum point, in case of the automatic transmission; is the system optimised for quick acceleration or low rpm's during cruise or.... )
 
 Based on the output, one could easily be led into the conclusion that manual transmission gives you more mpg than automatic transmission. But there seem to be some overlap, so let's see if this difference is also statistical significant.
 
@@ -64,6 +65,13 @@ We can confirm that cars with automatic transmission has an average mpg value of
 Are we satisfied with the result? Well not quite. With am as the only predictor and only vouching for 33,85% of the variance (adj. R-sqr: 0.3385) it is not a very good model to predict mpg.... so we'll do a multiple variable test
 
 
+residuals <- summary(lm(mpg~am,mtcars))$resid
 
+## Appendices
 
-
+fig.1
+```{r boxplot am}
+plot(ds$am,ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
+abline(h = mean(ds$mpg[ds$am == 'Aut.']),col='red',lty=2)
+abline(h = mean(ds$mpg[ds$am == 'Man.']),col='red',lty=2)
+```
