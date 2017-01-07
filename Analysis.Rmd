@@ -52,18 +52,19 @@ In this dataset, there are no observations of the speed of the cars, the aerodyn
 Based on the output, one could easily be led into the conclusion that manual transmission gives you more mpg than automatic transmission. But there seem to be some overlap, so let's see if this difference is also statistical significant.
 
 Let's dig a bit deeper into the data....
-Let's fit a linear regression model on the mpg/am set, and do a Student's t-Test as well:
+Let's fit a linear regression model on the mpg/am set, and do a Student's t-Test of mpg in relation to the two transmissiontypes as well:
 
 ```{r fit am}
 fit <- lm(mpg~am,data=ds)
 summary(fit)
-t.test(mpg~am,ds)
+t.test(mtcars$mpg~mtcars$am)
 ```
 
-We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). Evenso Student's test indicate that there is a significant difference, the p-value is almost zero (0.0013 ~> 0.1%), and the confidence interval tells us that the difference in means should lie between -11.28 and -3.21 (-8.1), hence we can reject the null hypothesis: "no difference if you drive with manual or automatic transmission."
+We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). 
 
-Are we satisfied with the result? Well not quite. With am as the only predictor and only vouching for 33,85% of the variance (adj. R-sqr: 0.3385) it is not a very good model to predict mpg.... so we'll do a multiple variable test
+Are we satisfied with the result? Well not quite. With am as the only predictor and only vouching for 33,85% of the variance in mpg (adj. R-sqr: 0.3385) it is not a very good model to predict mpg.... 
 
+Let's dig in further....
 
 residuals <- summary(lm(mpg~am,mtcars))$resid
 
