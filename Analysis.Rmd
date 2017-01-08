@@ -60,7 +60,7 @@ The closer to 1 or -1 the better the correllation (or linear association). am ha
 
 Let's look at the residuals (vertical distances from the regressionline): see fig.2
 
-The smaller the residuals (the closer they are to the regressionline) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that am is not a pretty good indicator got mpg.
+The smaller the residuals (the closer they are to the regressionline) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that am is not a pretty good indicator for mpg.
 
 You can see that the residuals are nicely spread on each side of the regressionline thus indicating that the residuals a normally distributed.
 
