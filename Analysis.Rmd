@@ -25,17 +25,16 @@ Let's begin with a small exploration of the raw data:
 ## Exploratory Analysis
 
 ```{r cars}
-ds <- mtcars
-head(ds, 5)
-str(ds)
+data(mtcars)
+head(mtcars, 5)
+str(mtcars)
 ```
 The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
 
 For a more intuitive view, I'll factorise the am-variable:
 
 ```{r}
-ds$am <- factor(ds$am,labels=c('Aut.','Man.'))
-head(ds,5)
+head(factor(mtcars$am,labels=c('Aut.','Man.')),5)
 ```
 As we can see, transmission (am) is now presented as either Aut. or Man.
 Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand)
@@ -55,14 +54,20 @@ Let's dig a bit deeper into the data....
 Let's fit a linear regression model on the mpg/am set, and do a Student's t-Test as well:
 
 ```{r fit am}
-fit <- lm(mpg~am,data=ds)
+fit <- lm(mpg~am,data=mtcars)
 summary(fit)
-t.test(mpg~am,ds)
+t.test(mpg~am,mtcars)
 ```
 
 We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). Evenso Student's test indicate that there is a significant difference, the p-value is almost zero (0.0013 ~> 0.1%), and the confidence interval tells us that the difference in means should lie between -11.28 and -3.21 (-8.1), hence we can reject the null hypothesis: "no difference if you drive with manual or automatic transmission."
 
 Are we satisfied with the result? Well not quite. With am as the only predictor and only vouching for 33,85% of the variance (adj. R-sqr: 0.3385) it is not a very good model to predict mpg.... so we'll do a multiple variable test
+
+I list the correllations between mpg and each of the predictive variables:
+
+```{r}
+round(cor(mtcars$mpg,mtcars),3)
+```
 
 
 residuals <- summary(lm(mpg~am,mtcars))$resid
@@ -71,7 +76,7 @@ residuals <- summary(lm(mpg~am,mtcars))$resid
 
 fig.1
 ```{r boxplot am}
-plot(ds$am,ds$mpg,col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
-abline(h = mean(ds$mpg[ds$am == 'Aut.']),col='red',lty=2)
-abline(h = mean(ds$mpg[ds$am == 'Man.']),col='red',lty=2)
+boxplot(mtcars$mpg ~ factor(mtcars$am, labels = c("Automatic", "Manual")),col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
+abline(h = mean(mtcars$mpg[mtcars$am == 0]),col='red',lty=2)
+abline(h = mean(mtcars$mpg[mtcars$am == 1]),col='red',lty=2)
 ```
