@@ -62,9 +62,17 @@ Let's look at the residuals (vertical distances from the regressionline): see fi
 
 The smaller the residuals (the closer they are to the regressionline) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that am is not a pretty good indicator for mpg.
 
-You can see that the residuals are nicely spread on each side of the regressionline thus indicating that the residuals a normally distributed.
+You can see that the residuals are nicely spread on each side of the regressionline thus indicating that the residuals a normally distributed. You could also see that from the histogram of the residuals: fig.3
 
 So is it pure coincidence that in this dataset it seems that manual transmission is better than automatic, or how can we explain this fact?
+
+Let's see how the weights are distributed and color the type of transmission differently
+```{r}
+plot(mtcars$wt,col=factor(mtcars$am),xlab = "car#", ylab = "weight")
+abline(h=mean(mtcars$wt))
+```
+
+Surprise! Almost all heavy cars have automatic transmission. This could easily explain why it seems that automatic tranmission is worse than manual, where as in reality the fact that heavier cars use more gasoline just is the real reason for the lower mpg. It just so happens, that in this selection of cars almost all heavy cars also have automatic transmission.
 
 ## Appendices
 
@@ -80,3 +88,9 @@ fig.2
 plot(summary(lm(mpg~am,mtcars))$resid, xlab="car#", ylab = "residuals")
 abline(h=0, col="red", lty=2)
 ```
+
+fig.3
+```{r}
+hist(summary(lm(mpg~am,mtcars))$resid, xlab="residuals", main = "")
+```
+
