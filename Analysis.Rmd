@@ -17,9 +17,9 @@ In this analysis I will seek to answer the question:
 * “Is an automatic or manual transmission better for MPG”
 * "Quantify the MPG difference between automatic and manual transmissions" 
 
-The short answer to this question, and based on the following, is "Neither" - given the provided dataset. We will see that this is a set of data that very easily could fool the untrained to conlude wrong.
+The short answer to this question, and based on the following, is "Neither" - given the provided data set. We will see that this is a set of data that very easily could fool the untrained to conclude wrong.
 
-Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a positive correlation between transmission(am) and miles per gallon(mpg), but whether or not transmission really is a good predictor, is not evident or even intuitive. Many other variables would probably have a higher influence on mpg, even some of those present in the dataset.
+Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a positive correlation between transmission(am) and miles per gallon(mpg), but whether or not transmission really is a good predictor, is not evident or even intuitive. Many other variables would probably have a higher influence on mpg, even some of those present in the data set.
 
 But the question is **not** about making a good model for estimating mpg, or if any other variables would be better predictors.
 
@@ -32,19 +32,19 @@ data(mtcars)
 head(mtcars, 5)
 str(mtcars)
 ```
-The complete dataset consist of 32 different car models, with a few different variables measured for each car. (Original dataset can be found in Mosteller & Tukey (1977) along with a very indept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
+The complete data set consist of 32 different car models, with a few different variables measured for each car. (Original data set can be found in Mosteller & Tukey (1977) along with a very in-dept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
 
-This rather small dataset, is a typical observational study, and not a well-done controlled experiment. And even if there seem to be a correlation between mpg and transmission, there is no evidence that the type of transmission has a causational effect on mpg. As a matter of fact it is not intuitive that just because you change the type of transmission you should get any benefit in mpg. 
+This rather small data set, is a typical observational study, and not a well-done controlled experiment. And even if there seem to be a correlation between mpg and transmission, there is no evidence that the type of transmission has a causation effect on mpg. As a matter of fact it is not intuitive that just because you change the type of transmission you should get any benefit in mpg. 
 
-To move an object, you need to add some force in order to overcome all other forces like friction, windresistance, gravity etc. etc. In the case with these cars, the force that makes them drive is the engine. And the more force you add, the more the car moves, but in order to add force you need to add energy, in this case gallons of fuel - the more force the lower the mpg. An engines "muscles" are more or less equal to it's horsepowers, and the amount of energy you need to apply, would have to overcome the existing forces on the car. E.g. the higher weight of the car the more energy you need -> the more fuel you use -> the lower the mpg ...
+To move an object, you need to add some force in order to overcome all other forces like friction, wind resistance, gravity etc. etc. In the case with these cars, the force that makes them drive is the engine. And the more force you add, the more the car moves, but in order to add force you need to add energy, in this case gallons of fuel - the more force the lower the mpg. An engines "muscles" are more or less equal to it's horsepower, and the amount of energy you need to apply, would have to overcome the existing forces on the car. E.g. the higher weight of the car the more energy you need -> the more fuel you use -> the lower the mpg ...
 
-In this dataset, there are no observations of the speed of the cars during measurement of mpg, the aerodynamics of the cars or the friction against the ground etc. etc. so a direct causation between transmission and mpg can not be expected. You could also add the driver-type; whether or not he is an aggressive driver or a more moderate driver, which in turn would also have an impact on the fuelconsumption (harder acceleration or strain on the engine by not shifting gear at the optimum point). In case of the automatic transmission; is the system optimised for quick acceleration or lower rpm's during cruise or ...
+In this data set, there are no observations of the speed of the cars during measurement of mpg, the aerodynamics of the cars or the friction against the ground etc. etc. so a direct causation between transmission and mpg can not be expected. You could also add the driver-type; whether or not he is an aggressive driver or a more moderate driver, which in turn would also have an impact on the fuel consumption (harder acceleration or strain on the engine by not shifting gear at the optimum point). In case of the automatic transmission; is the system optimized for quick acceleration or lower rpm's during cruise or ...
 
 Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand). I've added a red dashed line indicating the mean of mpg (not to be confused with the medians in the boxes) for both Automatic and Manual transmission. It is clearly visible that on average cars with manual transmission have a higher mpg than cars with automatic transmission. (approx. 7 mpg difference) - **see fig.1**
 
 Let's dig a bit deeper into the data....
 
-Let's fit a linear regression model on the mpg/transmission set, and do a Student's t-Test of mpg in relation to the two transmissiontypes as well:
+Let's fit a linear regression model on the mpg/transmission set, and do a Student's t-Test of mpg in relation to the two transmission types as well:
 ```{r fit am}
 fit <- lm(mpg~am,data=mtcars)
 summary(fit)
@@ -52,11 +52,11 @@ summary(fit)
 ```{r}
 t.test(mtcars$mpg~mtcars$am)
 ```
-From the lm we can conlude
+From the lm we can conclude
 
 We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). 
 
-From the Student's t-test we can conlude
+From the Student's t-test we can conclude
 
 We also have a very small p-value (0,1%) so we can reject the H0 hypothesis, and thus "conclude" that manual transmission is better than automatic in relation to mpg.
 
@@ -72,15 +72,15 @@ Better predictors seem to be weight(wt), cylinders(cyl), displacement(disp) and 
 
 But let's investigate a bit more in the transmission/mpg relation.
 
-Let's take a look at the residuals (vertical distances from the regressionline - or distance from the estimated y-value): **see fig.2** - the dotted red line indicates the regressionline.
+Let's take a look at the residuals (vertical distances from the regression line - or distance from the estimated y-value): **see fig.2** - the dotted red line indicates the regression line.
 
-The smaller the residuals (the closer they are to the regressionline) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that transmission is not a very good indicator for mpg.
+The smaller the residuals (the closer they are to the regression line) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that transmission is not a very good indicator for mpg.
 
-You can see that the residuals are nicely spread on each side of the regressionline thus indicating that the residuals are normally distributed. We could also conclude homoscedasticity (the variance of the variables is constant). So everything seems to be alright then? Nah... something is still nagging.
+You can see that the residuals are nicely spread on each side of the regression line thus indicating that the residuals are normally distributed. We could also conclude homoscedasticity (the variance of the variables is constant). So everything seems to be alright then? Nah... something is still nagging.
 
-Is it pure coincidence that in this dataset it seems that manual transmission is better than automatic, or how can we explain this fact?
+Is it pure coincidence that in this data set it seems that manual transmission is better than automatic, or how can we explain this fact?
 
-Let's see how the ordered weights are distributed, and color the type of transmission differently (Manual = lightgreen and Automatic = lightblue), the dotted red line is the mean of weights. **see fig.3**
+Let's see how the ordered weights are distributed, and color the type of transmission differently (Manual = light green and Automatic = light blue), the dotted red line is the mean of weights. **see fig.3**
 
 Surprise! Almost all heavy cars have automatic transmission. This could easily explain why it seems that automatic transmission is worse than manual, whereas in reality, the fact that heavier cars use more gasoline is the ***real reason for the lower mpg.*** 
 
@@ -100,14 +100,17 @@ abline(h = mean(mtcars$mpg[mtcars$am == 0]),col='red',lty=2)
 abline(h = mean(mtcars$mpg[mtcars$am == 1]),col='red',lty=2)
 ```
 
+
 fig.2
 ```{r am-residuals}
 plot(summary(lm(mpg~am,mtcars))$resid, col=c("lightblue","lightgreen")[as.factor(mtcars$am)],pch=19,xlab="car#", ylab = "residuals",main = "Residuals for mpg by am per car")
 abline(h=0, col="red", lty=2)
 legend("topleft", legend = c("Automatic","Manual"),pch=19,bty="n",col = c("lightblue","lightgreen"),cex = 0.75)
 ```
+
+
 fig.3
-```{r}
+```{r }
 plot(mtcars$wt[order(mtcars$wt)], col=c("lightblue","lightgreen")[as.factor(mtcars$am[order(mtcars$wt)])],pch=19,xlab = "cars", ylab = "weight",main = "Ordered Weight / car")
 abline(h=mean(mtcars$wt),col="red",lty=2)
 legend("topleft", legend = c("Automatic","Manual"),pch=19,bty="n",col = c("lightblue","lightgreen"),cex = 0.75)
