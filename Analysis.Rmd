@@ -32,9 +32,9 @@ data(mtcars)
 head(mtcars, 5)
 str(mtcars)
 ```
-The complete data set consist of 32 different car models, with a few different variables measured for each car. (Original data set can be found in Mosteller & Tukey (1977) along with a very in-dept analysis of the set and it's value as a predicting model among other things which is out of this small assignments idea)
+The complete data set consist of 32 different car models, with a few different variables measured for each car. (Original data set can be found in *Biometrics, Vol. 37, No. 2. (Jun. 1981, pp. 391-411.)* along with a very in-dept analysis by *H.V.Henderson & P.F.Velleman* of the set and it's value as a predicting model compared to *Hocking (1976)* among other things which is out of this small assignments idea)
 
-This rather small data set, is a typical observational study, and not a well-done controlled experiment. And even if there seem to be a correlation between mpg and transmission, there is no evidence that the type of transmission has a causation effect on mpg. As a matter of fact it is not intuitive that just because you change the type of transmission you should get any benefit in mpg. 
+This rather small data set, is a typical observational study, and not a well-executed controlled experiment. And even if there seem to be a correlation between mpg and transmission, there is no evidence that the type of transmission has a causation effect on mpg. As a matter of fact it is not intuitive that just because you change the type of transmission you should get any benefit in mpg. 
 
 To move an object, you need to add some force in order to overcome all other forces like friction, wind resistance, gravity etc. etc. In the case with these cars, the force that makes them drive is the engine. And the more force you add, the more the car moves, but in order to add force you need to add energy, in this case gallons of fuel - the more force the lower the mpg. An engines "muscles" are more or less equal to it's horsepower, and the amount of energy you need to apply, would have to overcome the existing forces on the car. E.g. the higher weight of the car the more energy you need -> the more fuel you use -> the lower the mpg ...
 
