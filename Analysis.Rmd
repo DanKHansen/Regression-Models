@@ -32,7 +32,7 @@ data(mtcars)
 head(mtcars, 5)
 str(mtcars)
 ```
-The complete data set consist of 32 different car models, with a few different variables measured for each car. (Original data set can be found in *Biometrics, Vol. 37, No. 2. (Jun. 1981, pp. 391-411.)* along with a very in-dept analysis by *H.V.Henderson & P.F.Velleman* of the set and it's value as a predicting model compared to *Hocking (1976)* among other things which is out of this small assignments idea)
+The complete data set consist of 32 different car models, with a few different variables measured for each car. (Original data set from *Motor Trend Magazine 1974* and also in *Biometrics, Vol. 37, No. 2. (Jun. 1981, pp. 391-411.)* along with a very in-dept analysis by *H.V.Henderson & P.F.Velleman* of the set and it's value as a predicting model compared to *Hocking (1976)* among other things which is out of this small assignments idea)
 
 This rather small data set, is a typical observational study, and not a well-executed controlled experiment. And even if there seem to be a correlation between mpg and transmission, there is no evidence that the type of transmission has a causation effect on mpg. As a matter of fact it is not intuitive that just because you change the type of transmission you should get any benefit in mpg. 
 
