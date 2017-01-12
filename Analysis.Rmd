@@ -17,7 +17,7 @@ In this analysis I will seek to answer the question:
 * “Is an automatic or manual transmission better for MPG”
 * "Quantify the MPG difference between automatic and manual transmissions" 
 
-The short answer to this question, and based on the following, is "Neither" - given the provided data set. We will see that this is a set of data that very easily could fool the untrained to conclude wrong.
+The short answer to this question, and based on the following, is: **"Neither" - given the provided data set.** We will see that this is a set of data that very easily could fool the untrained to conclude wrong.
 
 Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a positive correlation between transmission(am) and miles per gallon(mpg), but whether or not transmission really is a good predictor, is not evident or even intuitive. Many other variables would probably have a higher influence on mpg, even some of those present in the data set.
 
@@ -38,8 +38,6 @@ This rather small data set, is a typical observational study, and not a well-exe
 
 To move an object, you need to add some force in order to overcome all other forces like friction, wind resistance, gravity etc. etc. In the case with these cars, the force that makes them drive is the engine. And the more force you add, the more the car moves, but in order to add force you need to add energy, in this case gallons of fuel - the more force the lower the mpg. An engines "muscles" are more or less equal to it's horsepower, and the amount of energy you need to apply, would have to overcome the existing forces on the car. E.g. the higher weight of the car the more energy you need -> the more fuel you use -> the lower the mpg ...
 
-In this data set, there are no observations of the speed of the cars during measurement of mpg, the aerodynamics of the cars or the friction against the ground etc. etc. so a direct causation between transmission and mpg can not be expected. You could also add the driver-type; whether or not he is an aggressive driver or a more moderate driver, which in turn would also have an impact on the fuel consumption (harder acceleration or strain on the engine by not shifting gear at the optimum point). In case of the automatic transmission; is the system optimized for quick acceleration or lower rpm's during cruise or ...
-
 Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand). I've added a red dashed line indicating the mean of mpg (not to be confused with the medians in the boxes) for both Automatic and Manual transmission. It is clearly visible that on average cars with manual transmission have a higher mpg than cars with automatic transmission. (approx. 7 mpg difference) - **see fig.1**
 
 Let's dig a bit deeper into the data....
@@ -49,16 +47,16 @@ Let's fit a linear regression model on the mpg/transmission set, and do a Studen
 fit <- lm(mpg~am,data=mtcars)
 summary(fit)
 ```
+
 ```{r}
 t.test(mtcars$mpg~mtcars$am)
 ```
 From the lm we can conclude
 
-We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). 
 
 From the Student's t-test we can conclude
 
-We also have a very small p-value (0,1%) so we can reject the H0 hypothesis, and thus "conclude" that manual transmission is better than automatic in relation to mpg.
+We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). We also have a very small p-value (0,1%) so we can reject the H0 hypothesis, and thus "conclude" that manual transmission is better than automatic in relation to mpg.
 
 Are we satisfied with the result? Well not quite. With transmission as the only predictor and only vouching for 33,85% of the variance in mpg (adj. R-sqr: 0.3385) it is not a very good model for predicting mpg ... 
 
