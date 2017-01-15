@@ -17,7 +17,7 @@ In this analysis I will seek to answer the question:
 * “Is an automatic or manual transmission better for MPG”
 * "Quantify the MPG difference between automatic and manual transmissions" 
 
-The short answer to this question, and based on the following, is: **"Neither" - given the provided data set.** We will see that this is a set of data that very easily could fool the untrained to conclude wrong.
+The short answer to this question, and based on the following, is: **"Neither" - given the provided data set.** We will see that this is a set of data that very easily could fool the untrained to conclude wrong. A true Data Scientist (or ay scientist actually) sould always question the results found, and as I will show, it is very important to have domain knowledge, or if one do not have that, to seek it elsewhere.
 
 Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a positive correlation between transmission(am) and miles per gallon(mpg), but whether or not transmission really is a good predictor, is not evident or even intuitive. Many other variables would probably have a higher influence on mpg, even some of those present in the data set.
 
@@ -51,7 +51,9 @@ summary(fit)
 ```{r}
 t.test(mtcars$mpg~mtcars$am)
 ```
-From the lm we can conclude
+From the lm we can conclude:
+
+The residuals seems to be nicely symmetric distributed around the mean.
 
 
 From the Student's t-test we can conclude
