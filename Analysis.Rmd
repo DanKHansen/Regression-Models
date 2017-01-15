@@ -5,10 +5,11 @@ date: "08 JAN 2017"
 output:
   pdf_document: default
   html_document: default
+  geometry: margin=1in
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=80),tidy=TRUE)
 ```
 
 ## Executive Summary:
@@ -17,7 +18,7 @@ In this analysis I will seek to answer the question:
 * “Is an automatic or manual transmission better for MPG”
 * "Quantify the MPG difference between automatic and manual transmissions" 
 
-The short answer to this question, and based on the following, is: **"Neither" - given the provided data set.** We will see that this is a set of data that very easily could fool the untrained to conclude wrong. A true Data Scientist (or ay scientist actually) sould always question the results found, and as I will show, it is very important to have domain knowledge, or if one do not have that, to seek it elsewhere.
+The short answer to this question, and based on the following, is: **"Neither" - given the provided data set.** We will see that this is a set of data that very easily could fool the untrained to conclude wrong. A true Data Scientist (or any scientist actually) should always question the results found, and as I will show, it is very important to have domain knowledge, or if one do not have that, to seek it elsewhere. We will also see an example of confounding variables. Finally we can not expect this small dataset to be a good general model base for all car types, as it is biased towards luxury/sporty European cars.
 
 Comparing the mean values of mpg in relation to the type of transmissions seem to be indicating a positive correlation between transmission(am) and miles per gallon(mpg), but whether or not transmission really is a good predictor, is not evident or even intuitive. Many other variables would probably have a higher influence on mpg, even some of those present in the data set.
 
@@ -40,25 +41,21 @@ To move an object, you need to add some force in order to overcome all other for
 
 Let's see how the two type of transmission compares in regards to mpg (all other even, and given the data at hand). I've added a red dashed line indicating the mean of mpg (not to be confused with the medians in the boxes) for both Automatic and Manual transmission. It is clearly visible that on average cars with manual transmission have a higher mpg than cars with automatic transmission. (approx. 7 mpg difference) - **see fig.1**
 
-Let's dig a bit deeper into the data....
-
 Let's fit a linear regression model on the mpg/transmission set, and do a Student's t-Test of mpg in relation to the two transmission types as well:
 ```{r fit am}
 fit <- lm(mpg~am,data=mtcars)
 summary(fit)
 ```
 
+From the lm we can conclude:
+There seem to be and statistical significance between mpg and am, actually quite significant (p = 0.000285) but am can only vouch for approx. 33.9% of the variances in mpg. By the distribution of the residual around the mean, we can also see that they seem to follow the normal distribution. (symmetric around the mean)
+
 ```{r}
 t.test(mtcars$mpg~mtcars$am)
 ```
-From the lm we can conclude:
 
-The residuals seems to be nicely symmetric distributed around the mean.
-
-
-From the Student's t-test we can conclude
-
-We can confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). We also have a very small p-value (0,1%) so we can reject the H0 hypothesis, and thus "conclude" that manual transmission is better than automatic in relation to mpg.
+From the Student's t-test we can conclude:
+Confirm that cars with automatic transmission has an average mpg value of 17.15 and cars with manual transmission has an average that is 7.25 mpg higher (24.39). And this difference is significant as we also have a very small p-value (0,1%) so we can reject the H0 hypothesis, and thus "conclude" that manual transmission is better than automatic in relation to mpg.
 
 Are we satisfied with the result? Well not quite. With transmission as the only predictor and only vouching for 33,85% of the variance in mpg (adj. R-sqr: 0.3385) it is not a very good model for predicting mpg ... 
 
@@ -70,49 +67,49 @@ The closer to +/- 1 the better (positive or negative) the correlation (or linear
 
 Better predictors seem to be weight(wt), cylinders(cyl), displacement(disp) and horsepower(hp). All very intuitive as well. Heavier cars, and more powerful engines.
 
-But let's investigate a bit more in the transmission/mpg relation.
-
 Let's take a look at the residuals (vertical distances from the regression line - or distance from the estimated y-value): **see fig.2** - the dotted red line indicates the regression line.
 
 The smaller the residuals (the closer they are to the regression line) the better the model. These residuals are +/- 10 and this is a fairly large interval compared to the mpg interval between 10 and 44. Once again an indication that transmission is not a very good indicator for mpg.
 
-You can see that the residuals are nicely spread on each side of the regression line thus indicating that the residuals are normally distributed. We could also conclude homoscedasticity (the variance of the variables is constant). So everything seems to be alright then? Nah... something is still nagging.
+You can see that the residuals are nicely spread on each side of the regression line thus indicating that the residuals are normally distributed. We could also conclude homoscedasticity (the variance of the variables is constant). So everything seems to be all-right then? Nah... something is still nagging.
 
 Is it pure coincidence that in this data set it seems that manual transmission is better than automatic, or how can we explain this fact?
 
-Let's see how the ordered weights are distributed, and color the type of transmission differently (Manual = light green and Automatic = light blue), the dotted red line is the mean of weights. **see fig.3**
+Let's see how the ordered weights are distributed, the dotted red line is the mean of weights. **see fig.3**
 
-Surprise! Almost all heavy cars have automatic transmission. This could easily explain why it seems that automatic transmission is worse than manual, whereas in reality, the fact that heavier cars use more gasoline is the ***real reason for the lower mpg.*** 
+Surprise! Almost all heavy cars have automatic transmission. This could easily explain why it seems that automatic transmission is worse than manual, whereas in reality, the fact that heavier cars use more gasoline is the ***real reason for the lower mpg.***  - Weight seems to be a confounding variable to am.
 
 It just so happens, that in this selection of cars, almost all heavy cars also have automatic transmission. 
 
 A good example of the saying: **Correlation does not imply causation.**
 
+As this example is not about finding the best model, I stop here, concluding that am has no significant impact on mpg.
+
+Further investigation could include: finding the best model based, on this data, re-expression of data, visualising the confounding between am and wt lm(wt~am,mtcars) and you'll find a very strong relationship between am and wt.
 
 ***
 
-## Appendices
+## Appendices:  
 
-fig.1
-```{r boxplot am}
-boxplot(mtcars$mpg ~ factor(mtcars$am, labels = c("Automatic", "Manual")),col=c('lightgreen','lightblue'),xlab='transmission', ylab='mpg')
-abline(h = mean(mtcars$mpg[mtcars$am == 0]),col='red',lty=2)
-abline(h = mean(mtcars$mpg[mtcars$am == 1]),col='red',lty=2)
+fig.1  
+```{r boxplot am, fig.width=6, fig.height=4}
+CarCol <- c("blue","green")
+boxplot(mtcars$mpg ~ factor(mtcars$am, labels = c("Automatic", "Manual")),col=CarCol,xlab='transmission', ylab = 'mpg')
+abline(h = mean(mtcars$mpg[mtcars$am == 0]), col ='red', lty=2)
+abline(h = mean(mtcars$mpg[mtcars$am == 1]), col='red', lty=2)
 ```
 
-
-fig.2
-```{r am-residuals}
-plot(summary(lm(mpg~am,mtcars))$resid, col=c("lightblue","lightgreen")[as.factor(mtcars$am)],pch=19,xlab="car#", ylab = "residuals",main = "Residuals for mpg by am per car")
+fig.2  
+```{r am-residuals, fig.width=6, fig.height=4}
+CarColFact <- c("blue","green")[as.factor(mtcars$am)]
+plot(summary(lm(mpg~am,mtcars))$resid, col=CarColFact,pch=19,xlab="car# and am", ylab = "residuals", main = "Residuals of mpg / car and am")
 abline(h=0, col="red", lty=2)
-legend("topleft", legend = c("Automatic","Manual"),pch=19,bty="n",col = c("lightblue","lightgreen"),cex = 0.75)
+legend("topleft", legend = c("Automatic","Manual"), pch=19, bty="n", col = CarCol, cex = 0.75)
 ```
 
-
-fig.3
-```{r }
-plot(mtcars$wt[order(mtcars$wt)], col=c("lightblue","lightgreen")[as.factor(mtcars$am[order(mtcars$wt)])],pch=19,xlab = "cars", ylab = "weight",main = "Ordered Weight / car")
+fig.3  
+```{r , fig.width=6, fig.height=4}
+plot(mtcars$wt[order(mtcars$wt)], col=c("blue","green")[as.factor(mtcars$am[order(mtcars$wt)])],pch=19,xlab = "cars", ylab = "weight (1000 lbs)",main = "Ordered Weight / car")
 abline(h=mean(mtcars$wt),col="red",lty=2)
-legend("topleft", legend = c("Automatic","Manual"),pch=19,bty="n",col = c("lightblue","lightgreen"),cex = 0.75)
+legend("topleft", legend = c("Automatic","Manual"),pch=19,bty="n",col = CarCol,cex = 0.75)
 ```
-
